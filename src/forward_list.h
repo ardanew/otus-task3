@@ -58,4 +58,62 @@ public:
 			ptr = ptr->m_next;
 		}
 	}
+
+	size_t size() const
+	{
+		Node* ptr = m_head;
+		size_t res = 0;
+		while (ptr != nullptr)
+		{
+			ptr = ptr->m_next;
+			res++;
+		}
+		return res;
+	}
+
+	bool empty() const
+	{
+		return m_head == nullptr;
+	}
+
+	class ForwardListIterator;
+	using iterator = ForwardListIterator;
+
+	ForwardListIterator begin()
+	{
+		return ForwardListIterator(m_head);
+	}
+
+	ForwardListIterator end()
+	{
+		return ForwardListIterator(nullptr);
+	}
+
+	class ForwardListIterator
+	{
+	public:
+		ForwardListIterator(Node* node) : m_node(node)
+		{
+		}
+
+		ForwardListIterator& operator++()
+		{ 
+			m_node = m_node->m_next;
+			return *this;
+		}
+
+		bool operator != (const ForwardListIterator& other) const
+		{
+			return m_node != other.m_node;
+		}
+
+		T& operator*() const
+		{
+			return m_node->m_value;
+		}
+
+	protected:
+		friend class ForwardList<T>;
+		Node* m_node = nullptr;
+	};
 };

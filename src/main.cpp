@@ -21,7 +21,6 @@ int main()
 	std::map<int, int, std::less<int>, PoolAllocator<std::pair<int, int>, 10>> allocatedMap;;
 	for (int i = 0; i <= 9; i++)
 		allocatedMap[i] = factorial(i);
-
 	for (const auto& kvp : allocatedMap)
 		cout << kvp.first << " " << kvp.second << endl;
 
@@ -32,7 +31,8 @@ int main()
  	ForwardList<int, PoolAllocator<int, 10>> allocatedList;
  	for (int i = 0; i <= 9; i++)
  		allocatedList.addNew(factorial(i));
-	allocatedList.forEach([](int& v) { cout << v << " ";  });
+	for (auto i : allocatedList)
+		cout << i << " ";
 	cout << endl;
 
 	return 0;
